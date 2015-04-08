@@ -11,17 +11,26 @@
 
 #include <stdio.h>
 #include <list>
+#include <unordered_map>
 
 class LRU{
 public:
     LRU(int cacheSize);
     ~LRU();
     
-    void push_back(int page);
-    bool contains(int page);
+    void add(int page);
+    float getHitRatio();
 private:
     std::list<int> cache;
-    int cacheSize;
+    std::unordered_map<int, bool> currPages;
+    int cacheSize, numHits, numRequests;
+    double containsTime, calculateTime, moveTime, replaceTime;
+    float hitRatio;
+    
+    bool contains(int page);
+    void calculateHitRatio();
+    void moveToBack(int page);
+    void replacePage(int page);
 };
 
 #endif /* defined(_____LRU__) */
