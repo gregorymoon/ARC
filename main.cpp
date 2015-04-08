@@ -8,8 +8,11 @@
 
 #include <iostream>
 
+#include "LRU.h"
+
 int main(int argc, const char * argv[]) {
-    printf("%s\n", argv[2]);
+    LRU *l1 = new LRU(atoi(argv[1]));
+
     FILE *inFile = fopen(argv[2], "r");
     
     if(inFile != NULL){
@@ -23,13 +26,16 @@ int main(int argc, const char * argv[]) {
             
             int lastBlock = startingBlock + numBlocks;
             
-            /*for(int i = startingBlock; i < lastBlock; i++){
-                
-            }*/
-            printf("%d\n", requestNum);
+            if(requestNum % 100000 == 0)
+                printf("%d\n", requestNum);
+            
+            for(int i = startingBlock; i < lastBlock; i++)
+                l1->add(i);
         }
     }
     else
         printf("Not open\n");
+    
+    printf("%.2f\n", l1->getHitRatio());
     return 0;
 }

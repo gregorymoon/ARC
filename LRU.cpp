@@ -10,23 +10,65 @@
 
 LRU::LRU(int cacheSize){
     this->cacheSize = cacheSize;
+    numHits = 0;
+    numRequests = 0;
 }
 
 LRU::~LRU(){
     
 }
 
-void LRU::push_back(int page){
+void LRU::add(int page){
+    numRequests++;
     
+    if(contains(page))
+        moveToBack(page);
+    else{
+        if(cache.size() < cacheSize){
+            itLocs[page] = cache.insert(cache.end(),page);
+            currPages[page] = true;
+        }
+        else
+            replacePage(page);
+    }
 }
 
 bool LRU::contains(int page){
-    std::list<int>::const_iterator it,
-        itEnd = this->cache.end();
-    
-    for (it = this->cache.begin(); it != itEnd; it++) {
-        printf("%d\n", *it);
+    if(currPages[page]){
+        numHits++;
+        return true;
     }
     
     return false;
+}
+
+float LRU::getHitRatio(){
+    calculateHitRatio();
+        
+    return hitRatio;
+}
+
+void LRU::calculateHitRatio(){
+    hitRatio = (float)numHits/(float)numRequests * 100;
+}
+
+void LRU::moveToBack(int page){
+    cache.erase(itLocs[page]);
+    itLocs[page] = cache.insert(cache.end(),page);
+}
+
+void LRU::replacePage(int page){
+    int oldPage = cache.front();
+    
+    //lower memory use, higher runtime
+    //currPages.erase(oldPage);
+    
+    //higher memory use, lower runtime
+    currPages[oldPage] = false;
+    
+    currPages[page] = true;
+    
+    cache.pop_front();
+
+    itLocs[page] = cache.insert(cache.end(), page);
 }
