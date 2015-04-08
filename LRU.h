@@ -23,8 +23,8 @@ public:
 private:
     std::list<int> cache;
     std::unordered_map<int, bool> currPages;
+    std::unordered_map<int, std::list<int>::iterator> itLocs;
     int cacheSize, numHits, numRequests;
-    double containsTime, calculateTime, moveTime, replaceTime;
     float hitRatio;
     
     bool contains(int page);
