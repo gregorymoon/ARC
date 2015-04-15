@@ -12,7 +12,6 @@
 
 int main(int argc, const char * argv[]) {
     LRU *l1 = new LRU(atoi(argv[1]));
-
     FILE *inFile = fopen(argv[2], "r");
     
     if(inFile != NULL){
@@ -27,7 +26,7 @@ int main(int argc, const char * argv[]) {
             int lastBlock = startingBlock + numBlocks;
             
             if(requestNum % 100000 == 0)
-                printf("%d\n", requestNum);
+                printf("Processed %d entries\n", requestNum);
             
             for(int i = startingBlock; i < lastBlock; i++)
                 l1->add(i);
@@ -36,6 +35,6 @@ int main(int argc, const char * argv[]) {
     else
         printf("Not open\n");
     
-    printf("%.2f\n", l1->getHitRatio());
+    printf("hit ratio: %.2f\n", l1->getHitRatio());
     return 0;
 }
