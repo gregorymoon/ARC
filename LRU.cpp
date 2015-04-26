@@ -23,13 +23,11 @@ void LRU::setCacheSize(int cacheSize){
     this->cacheSize = cacheSize;
 }
 
-bool LRU::add(int page){
+void LRU::add(int page){
     numRequests++;
     
-    if(contains(page)){
+    if(contains(page))
         moveToBack(page);
-        return true;
-    }
     else{
         if(cache.size() < cacheSize){
             itLocs[page] = cache.insert(cache.end(),page);
@@ -38,8 +36,6 @@ bool LRU::add(int page){
         }
         else
             replacePage(page);
-        
-        return false;
     }
 }
 
@@ -75,6 +71,7 @@ void LRU::replacePage(int page){
     
     //higher memory use, lower runtime
     //removePage(oldPage);
+    
     
     currPages[page] = true;
     

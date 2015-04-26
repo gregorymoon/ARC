@@ -18,7 +18,7 @@ public:
     LRU(int cacheSize);
     ~LRU();
     
-    bool add(int page);
+    void add(int page);
     bool contains(int page);
 
     void setCacheSize(int cacheSize);

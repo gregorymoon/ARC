@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include "ARC.h"
-#include "LRU.h"
 
 int main(int argc, const char * argv[]) {
     ARC *arc = new ARC(atoi(argv[1]));
@@ -32,7 +31,7 @@ int main(int argc, const char * argv[]) {
             for(int i = startingBlock; i < lastBlock; i++){
                 arc->add(i);
             }
-        }
+	}
     }
     else
         printf("Not open\n");
@@ -41,7 +40,5 @@ int main(int argc, const char * argv[]) {
     printf("arc num hits: %d\n", arc->getNumHits());
     printf("arc num misses: %d\n", arc->getNumMisses());
     printf("arc num requests: %d\n", arc->getNumRequests());
-
-
     return 0;
 }
