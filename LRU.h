@@ -25,7 +25,7 @@ public:
     void moveToBack(int page);
     void removePage(int page);
     
-    size_t getSize() { return currPages.size(); };
+    int getSize() { return size; };
 
     float getHitRatio();
 private:

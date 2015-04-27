@@ -16,11 +16,11 @@ ARC::ARC(int cacheSize){
     hitRatio = 0;
     this->cacheSize = cacheSize;
     
-    t1 = new LRU(cacheSize/2);
-    t2= new LRU(cacheSize/2);
+    t1 = new LRU(cacheSize);
+    t2= new LRU(cacheSize);
 
-    b1 = new LRU(cacheSize/2);
-    b2 = new LRU(cacheSize/2);
+    b1 = new LRU(cacheSize);
+    b2 = new LRU(cacheSize);
 
 }
 
@@ -104,10 +104,6 @@ bool ARC::checkCaseFour(int page) {
     }
     else{
         int size = t1->getSize() + t2->getSize() + b1->getSize() + b2->getSize();
-        
-        if (t1->getSize() == cacheSize/2) {
-            printf("Hello");
-        }
         
         if(size >= cacheSize){
             if(size ==  2 * cacheSize)

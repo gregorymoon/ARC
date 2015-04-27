@@ -12,6 +12,8 @@
 
 int main(int argc, const char * argv[]) {
     ARC *arc = new ARC(atoi(argv[1]));
+    LRU *lru = new LRU(atoi(argv[1]));
+    
     FILE *inFile = fopen(argv[2], "r");
     
     if(inFile != NULL){
@@ -30,6 +32,7 @@ int main(int argc, const char * argv[]) {
             
             for(int i = startingBlock; i < lastBlock; i++){
                 arc->add(i);
+                lru->add(i);
             }
 	}
     }
@@ -37,8 +40,7 @@ int main(int argc, const char * argv[]) {
         printf("Not open\n");
     
     printf("arc hit ratio: %.2f\n", arc->getHitRatio());
-    printf("arc num hits: %d\n", arc->getNumHits());
-    printf("arc num misses: %d\n", arc->getNumMisses());
-    printf("arc num requests: %d\n", arc->getNumRequests());
+    printf("lru hit ratio: %.2f\n", lru->getHitRatio());
+    
     return 0;
 }

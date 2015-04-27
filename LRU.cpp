@@ -67,10 +67,10 @@ void LRU::replacePage(int page){
     int oldPage = cache.front();
     
     //lower memory use, higher runtime
-    currPages.erase(oldPage);
+    //currPages.erase(oldPage);
     
     //higher memory use, lower runtime
-    //removePage(oldPage);
+    removePage(oldPage);
     
     
     currPages[page] = true;
@@ -81,6 +81,6 @@ void LRU::replacePage(int page){
 }
 
 void LRU::removePage(int page){
-    //currPages[page] = false;
+    currPages[page] = false;
     size--;
 }
